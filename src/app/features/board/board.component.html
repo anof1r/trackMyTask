@@ -1,20 +1,22 @@
 <div class="board">
-    <div class="board-section" *ngFor="let section of sections">
-      <h3>{{ section.title }}</h3>
+  <div class="board-section" *ngFor="let section of sections; let i = index">
+    <h3>{{ section.title }}</h3>
+    <div
+      cdkDropList
+      [cdkDropListData]="section.tasks"
+      [cdkDropListConnectedTo]="connectedLists"
+      class="task-list"
+      (cdkDropListDropped)="drop($event, section)"
+      [id]="'list' + i"
+    >
       <div
-        cdkDropList
-        [cdkDropListData]="section.tasks"
-        class="task-list"
-        (cdkDropListDropped)="drop($event)"
+        class="task-card"
+        *ngFor="let task of section.tasks"
+        class="task"
+        cdkDrag
       >
-        <div class="task-card"
-          *ngFor="let task of section.tasks"
-          class="task"
-          cdkDrag
-        >
-          {{ task }}
-        </div>
+        {{ task }}
       </div>
     </div>
   </div>
-  
+</div>

@@ -18,7 +18,6 @@ export class SliderMenuComponent {
 
   constructor(private router: Router) {}
 
-  // Метод для навигации при клике на пункт меню
   navigateTo(route: string) {
     this.router.navigate([route]);
   }

@@ -6,7 +6,7 @@ import { TasksComponent } from './features/tasks/tasks.component';
 export const routes: Routes = [
     {
       path: '',
-      component: MainLayoutComponent,  // Главный компонент с меню и динамическим контентом
+      component: MainLayoutComponent,
       children: [
         { path: 'board', component: BoardComponent },
         { path: 'tasks', component: TasksComponent },

@@ -24,16 +24,23 @@ export class BoardComponent {
 constructor(private cd: ChangeDetectorRef){
 
 }
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
+
+get connectedLists(): string[] {
+  return this.sections.map((_, index) => 'list' + index);
+}
+
+drop(event: CdkDragDrop<string[]>, section: any) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(section.tasks, event.previousIndex, event.currentIndex);
+  } else {
+    console.log(section);
+    
+    transferArrayItem(
+      event.previousContainer.data,
+      section.tasks,
+      event.previousIndex,
+      event.currentIndex
+    );
   }
+}
 }
