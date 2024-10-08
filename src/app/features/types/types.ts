@@ -7,5 +7,13 @@ export enum BOARD_SECTIONS {
 
 export interface Section {
     status: BOARD_SECTIONS,
-    tasks: String[]
+    tasks: Task[]
+}
+
+export interface Task {
+    name: string,
+    status: BOARD_SECTIONS,
+    description: string,
+    storyCount: number,
+    labels: String[]
 }

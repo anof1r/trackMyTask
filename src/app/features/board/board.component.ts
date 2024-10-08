@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { sections } from '../constants/constants';
-import { Section } from '../types/types';
+import { Section, Task } from '../types/types';
+import { TasksComponent } from "../tasks/tasks.component";
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [DragDropModule, NgFor],
+  imports: [DragDropModule, NgFor, TasksComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -20,12 +21,10 @@ export class BoardComponent {
     return this.sections.map((_, index) => 'list' + index);
   }
 
-  drop(event: CdkDragDrop<string[]>, section: Section) {
+  drop(event: CdkDragDrop<Task[]>, section: Section) {
     if (event.previousContainer === event.container) {
       moveItemInArray(section.tasks, event.previousIndex, event.currentIndex);
     } else {
-      console.log(section);
-
       transferArrayItem(
         event.previousContainer.data,
         section.tasks,

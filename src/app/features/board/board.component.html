@@ -3,8 +3,8 @@
     <div class="section-title">{{ section.status }}</div>
     <div cdkDropList [cdkDropListData]="section.tasks" [cdkDropListConnectedTo]="connectedLists" class="task-list"
       (cdkDropListDropped)="drop($event, section)" [id]="'list' + i">
-      <div class="task-card" *ngFor="let task of section.tasks" class="task" cdkDrag>
-        {{ task }}
+      <div *ngFor="let task of section.tasks" class="task" cdkDrag>
+        <app-tasks [task]="task"></app-tasks>
       </div>
     </div>
   </div>
