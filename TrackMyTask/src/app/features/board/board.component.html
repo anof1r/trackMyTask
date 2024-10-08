@@ -1,0 +1,20 @@
+<div class="board">
+    <div class="board-section" *ngFor="let section of sections">
+      <h3>{{ section.title }}</h3>
+      <div
+        cdkDropList
+        [cdkDropListData]="section.tasks"
+        class="task-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="task-card"
+          *ngFor="let task of section.tasks"
+          class="task"
+          cdkDrag
+        >
+          {{ task }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

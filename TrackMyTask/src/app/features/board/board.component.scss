@@ -1,0 +1,41 @@
+.board {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
+    height: 100vh;
+  }
+  
+  .board-section {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .task {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    cursor: move;
+  }
+  
+  .cdk-drag-preview {
+    background-color: #e0f7fa;
+    border: 1px solid #00bcd4;
+  }
+  
+  .cdk-drop-list-dragging .task {
+    opacity: 0.5;
+  }
+  

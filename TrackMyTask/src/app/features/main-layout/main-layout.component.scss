@@ -1,0 +1,21 @@
+/* main-layout.component.scss */
+
+.container {
+    display: flex;
+    height: 100vh; /* Занимаем всю высоту экрана */
+    overflow: hidden; /* Убираем лишние скроллы */
+  }
+  
+  app-slider-menu {
+    width: 250px;
+    background-color: #f4f4f4;
+    height: 100vh; /* Занимаем всю высоту экрана */
+  }
+  
+  .content {
+    flex-grow: 1;
+    overflow: hidden; /* Отключаем глобальные скроллы */
+    display: flex;
+    flex-direction: column;
+  }
+  
