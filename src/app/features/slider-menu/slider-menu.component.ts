@@ -16,7 +16,7 @@ export class SliderMenuComponent {
     { label: 'Команда', route: '/team', icon: 'group' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   navigateTo(route: string) {
     this.router.navigate([route]);
