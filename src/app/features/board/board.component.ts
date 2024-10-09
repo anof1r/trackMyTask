@@ -15,7 +15,7 @@ import { TasksComponent } from "../tasks/tasks.component";
 
 export class BoardComponent {
 
-  protected sections = sections
+  protected sections = sections // refactor to api call
 
   get connectedLists(): string[] {
     return this.sections.map((_, index) => 'list' + index);

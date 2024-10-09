@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 })
 export class SliderMenuComponent {
   menuItems = [
-    { label: 'Доска', route: '/board', icon: 'dashboard' },
-    { label: 'Задачи', route: '/tasks', icon: 'task' },
-    { label: 'Команда', route: '/team', icon: 'group' }
+    { label: 'Board', route: '/board', icon: 'dashboard' },
+    { label: 'Tasks', route: '/tasks', icon: 'task' },
+    { label: 'Team', route: '/team', icon: 'group' }
   ];
 
   constructor(private router: Router) { }

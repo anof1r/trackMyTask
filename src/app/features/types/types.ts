@@ -11,6 +11,7 @@ export interface Section {
 }
 
 export interface Task {
+    id: number,
     name: string,
     status: BOARD_SECTIONS,
     description: string,
