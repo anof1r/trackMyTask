@@ -1,20 +1,39 @@
 import { Injectable } from '@angular/core';
-import { BoardApiService } from './board-api.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Task } from '../types/types';
+import { BoardApiService } from './board-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class BoardUiService {
+  tasksSubject = new BehaviorSubject<Task[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
 
-  protected todoTaskList: Task[] | null = null
-  protected inProgressTaskList: Task[] | null = null
-  protected inReviewTaskList: Task[] | null = null
-  protected doneTaskList: Task[] | null = null
+  constructor(private boardApiService: BoardApiService) {
+  }
 
-  constructor(private boardApiService: BoardApiService) { }
+  loadTasks(): void {
+    this.boardApiService.getTasks().subscribe((tasks: Task[]) => {      
+      this.tasksSubject.next(tasks);
+    });
+  }
 
-  getTasks() {
-    return this.boardApiService.getTasks()
+  getTasks(): Task[] {
+    return this.tasksSubject.getValue();
+  }
+
+  updateTaskLocally(taskId: number, newStatus: string) {
+    console.log('ui-service local update => ', taskId, newStatus);
+    
+    const updatedTasks = this.getTasks().map(task => {
+      if (task.id === taskId) {
+        return { ...task, status: newStatus };
+      }
+      return task;
+    });
+
+    this.tasksSubject.next(updatedTasks as Task[]);
   }
 }

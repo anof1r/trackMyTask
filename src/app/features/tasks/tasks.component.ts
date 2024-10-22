@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Task } from '../types/types';
 
 @Component({
-  selector: 'app-tasks',
+  selector: 'app-task',
   standalone: true,
   imports: [],
   templateUrl: './tasks.component.html',

@@ -4,14 +4,12 @@ import { BoardComponent } from './features/board/board.component';
 import { TasksComponent } from './features/tasks/tasks.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: MainLayoutComponent,
-    children: [
+  
+
       { path: 'board', component: BoardComponent },
       { path: 'tasks', component: TasksComponent },
       // { path: 'team', component: TeamComponent },
       { path: '', redirectTo: 'board', pathMatch: 'full' }
-    ]
-  }
+    
+  
 ];

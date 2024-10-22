@@ -1,10 +1,16 @@
 <div class="board">
-  <div class="board-section" *ngFor="let section of sections; let i = index">
+  <div class="board-section" *ngFor="let section of sections$ | async; let i = index">
     <div class="section-title">{{ section.status }}</div>
-    <div cdkDropList [cdkDropListData]="section.tasks" [cdkDropListConnectedTo]="connectedLists" class="task-list"
-      (cdkDropListDropped)="drop($event, section)" [id]="'list' + i">
-      <div *ngFor="let task of section.tasks" class="task" cdkDrag>
-        <app-tasks [task]="task"></app-tasks>
+    <div 
+      cdkDropList 
+      [cdkDropListData]="section.tasks" 
+      [cdkDropListConnectedTo]="connectedLists" 
+      class="task-list" 
+      (cdkDropListDropped)="drop($event, section)"
+      [id]="'list' + i"
+    >
+    <div *ngFor="let task of section.tasks" class="task" cdkDrag>
+        <app-task [task]="task"></app-task>
       </div>
     </div>
   </div>
