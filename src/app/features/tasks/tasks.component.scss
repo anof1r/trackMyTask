@@ -1,9 +1,17 @@
 .task-card {
-    padding: 10px;
-    margin: 5px 0;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: move;
-  }
-  
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: move;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cdk-drag-preview {
+  background-color: #e0f7fa;
+  border: 1px solid #00bcd4;
+}
+
+.cdk-drop-list-dragging .task-card {
+  opacity: 0.5;
+}

@@ -32,7 +32,7 @@ export class BoardComponent implements OnInit {
     this.sections$ = this.boardUiService.tasks$.pipe(
       map(tasks => this.sections.map(section => ({
         status: section.status,
-        tasks: tasks.filter((t: Task) => t.status.toLowerCase() === section.status.toLowerCase())
+        tasks: tasks.filter((task: Task) => task.status.toLowerCase() === section.status.toLowerCase())
       })))
     );
   }
@@ -47,10 +47,6 @@ export class BoardComponent implements OnInit {
 
   onSelectTask(task: Task): void {
     this.selectedTask = task;
-  }
-
-  closeTaskInfo(): void {
-    this.selectedTask = null;
   }
 
   drop(event: CdkDragDrop<Task[]>, section: any) {

@@ -12,5 +12,4 @@ import { TaskMenuComponent } from '../task-menu/task-menu.component';
 
 export class TasksComponent {
     @Input() task: Task = {} as Task;
-
 }

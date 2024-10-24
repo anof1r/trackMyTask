@@ -13,6 +13,7 @@ import { Task } from '../types/types';
 export class TaskMenuComponent {
   @Input() task: Task | null = null;
 
+  //TODO: after close task info cannot open again because null
   closeTaskInfo(): void {
     this.task = null;
   }
