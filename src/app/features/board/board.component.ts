@@ -33,7 +33,7 @@ export class BoardComponent implements OnInit {
     this.sections$ = this.boardUiService.tasks$.pipe(
       map(tasks => this.sections.map(section => ({
         status: section.status,
-        tasks: tasks.filter(t => t.status === section.status)
+        tasks: tasks.filter((t: Task) => t.status.toLowerCase() === section.status.toLowerCase())
       })))
     );
 
