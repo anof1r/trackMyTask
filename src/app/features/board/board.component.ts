@@ -1,16 +1,17 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Task } from '../types/types';
 import { TasksComponent } from "../tasks/tasks.component";
 import { BoardUiService } from './board-ui.service';
 import { BoardApiService } from './board-api.service';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { TaskMenuComponent } from '../task-menu/task-menu.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [NgFor, AsyncPipe, NgIf, TasksComponent, DragDropModule],
+  imports: [NgFor, AsyncPipe, NgIf, TasksComponent,TaskMenuComponent, DragDropModule],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -25,25 +26,31 @@ export class BoardComponent implements OnInit {
   ];
 
   sections$: Observable<{ status: string, tasks: Task[] }[]>;
+  protected selectedTask: Task | null = null;
 
-
-  constructor(protected readonly boardUiService: BoardUiService, private cd: ChangeDetectorRef, protected readonly boardApiService: BoardApiService) {
-    this.boardUiService.loadTasks()
-
+  constructor(protected readonly boardUiService: BoardUiService, protected readonly boardApiService: BoardApiService) {
     this.sections$ = this.boardUiService.tasks$.pipe(
       map(tasks => this.sections.map(section => ({
         status: section.status,
         tasks: tasks.filter((t: Task) => t.status.toLowerCase() === section.status.toLowerCase())
       })))
     );
-
   }
+
   ngOnInit(): void {
     this.boardUiService.loadTasks()
   }
 
   get connectedLists(): string[] {
     return this.sections.map((_, index) => 'list' + index);
+  }
+
+  onSelectTask(task: Task): void {
+    this.selectedTask = task;
+  }
+
+  closeTaskInfo(): void {
+    this.selectedTask = null;
   }
 
   drop(event: CdkDragDrop<Task[]>, section: any) {
@@ -64,7 +71,6 @@ export class BoardComponent implements OnInit {
 
         this.boardUiService.tasksSubject.next(tasksArray);
 
-        this.cd.detectChanges();
       });
     }
   }

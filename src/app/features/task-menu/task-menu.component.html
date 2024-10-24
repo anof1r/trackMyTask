@@ -1,0 +1,9 @@
+<div *ngIf="task" class="task-info">
+    <button class="close-btn" (click)="closeTaskInfo()">Close</button>
+    <h2>{{ task.name }}</h2>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+    <p><strong>Story Count:</strong> {{ task.storyCount }}</p>
+    <p><strong>Labels:</strong> {{ task.labels.join(', ') }}</p>
+  </div>
+  

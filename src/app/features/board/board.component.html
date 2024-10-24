@@ -9,9 +9,11 @@
       (cdkDropListDropped)="drop($event, section)"
       [id]="'list' + i"
     >
-    <div *ngFor="let task of section.tasks" class="task" cdkDrag>
+    <div *ngFor="let task of section.tasks" (click)="onSelectTask(task)" class="task" cdkDrag>
         <app-task [task]="task"></app-task>
       </div>
     </div>
   </div>
 </div>
+
+<app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask"></app-task-menu>
