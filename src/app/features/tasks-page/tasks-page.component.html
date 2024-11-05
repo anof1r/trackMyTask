@@ -1,4 +1,4 @@
-<p-table [rowsPerPageOptions]="[5, 10, 15] " [paginator]="true" [rows]="10" [value]="(tasks | async) ?? []"
+<p-table [rowsPerPageOptions]="[5, 10, 15] " [paginator]="true" [rows]="5" [value]="(tasks | async) ?? []"
     [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['name', 'task.status', 'task.storyCount', 'labels']">
     <ng-template pTemplate="header">
         <tr>
