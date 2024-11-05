@@ -1,30 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-const test = [
-  {
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Test 1',
-    description: 'Product Description',
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5
-},
-{
-  id: '1001',
-  code: 'f230fh0g3',
-  name: 'Test 2',
-  description: 'Product Description',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5
-},
-]
+import { MOCK_TABLE_DATA, TABLE_TASKS } from '../consts/consts';
 @Component({
   selector: 'app-tasks-page',
   standalone: true,
@@ -34,11 +11,11 @@ const test = [
 })
 
 export class TasksPageComponent {
-  products!: any[];
+  tasks!: any[];
 
   constructor() {}
 
   ngOnInit() {
-      this.products = test
+      this.tasks = TABLE_TASKS
   }
 }

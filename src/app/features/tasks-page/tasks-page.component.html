@@ -1,16 +1,18 @@
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [paginator]="true" [rows]="5" [value]="tasks" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>Code</th>
                 <th>Name</th>
-                <th>Category</th>
+                <th>Status</th>
+                <th>Story Points</th>
+                <th>Label</th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
+        <ng-template pTemplate="body" let-task>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.storyCount }}</td>
+                <td>{{ task.labels }}</td>
             </tr>
         </ng-template>
     </p-table>
