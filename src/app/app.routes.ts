@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
-import { MainLayoutComponent } from './features/main-layout/main-layout.component';
 import { BoardComponent } from './features/board/board.component';
-import { TasksComponent } from './features/tasks/tasks.component';
+import { TasksPageComponent } from './features/tasks-page/tasks-page.component';
 
 export const routes: Routes = [
   
 
       { path: 'board', component: BoardComponent },
-      { path: 'tasks', component: TasksComponent },
+      { path: 'tasks', component: TasksPageComponent },
       // { path: 'team', component: TeamComponent },
       { path: '', redirectTo: 'board', pathMatch: 'full' }
     

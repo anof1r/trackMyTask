@@ -11,8 +11,7 @@ export class BoardUiService {
   tasksSubject = new BehaviorSubject<Task[]>([]);
   tasks$ = this.tasksSubject.asObservable();
 
-  constructor(private boardApiService: BoardApiService) {
-  }
+  constructor(private boardApiService: BoardApiService) {}
 
   loadTasks(): void {
     this.boardApiService.getTasks().subscribe((tasks: Task[]) => {      
