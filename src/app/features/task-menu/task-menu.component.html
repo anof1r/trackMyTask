@@ -1,9 +1,29 @@
 <div *ngIf="task" class="task-info">
-    <button class="close-btn" (click)="closeTaskInfo()">Close</button>
-    <h2>{{ task.name }}</h2>
-    <p><strong>Description:</strong> {{ task.description }}</p>
-    <p><strong>Status:</strong> {{ task.status }}</p>
-    <p><strong>Story Count:</strong> {{ task.storyCount }}</p>
-    <p><strong>Labels:</strong> {{ task.labels.join(', ') }}</p>
-    <p><strong>ID:</strong> {{ task.id.toString()}}</p>
+  <button class="close-btn" (click)="closeTaskInfo()">✖</button>
+  <h2 class="task-title">{{ task.name }}</h2>
+  
+  <div class="task-details">
+      <p class="task-section">
+          <span class="icon">📄</span>
+          <strong>Description:</strong> {{ task.description }}
+      </p>
+      <p class="task-section">
+          <span class="icon">📈</span>
+          <strong>Status:</strong> 
+          <span [ngClass]="statusClass(task.status)">{{ task.status }}</span>
+      </p>
+      <p class="task-section">
+          <span class="icon">🌟</span>
+          <strong>Story Points:</strong> {{ task.storyCount }}
+      </p>
+      <p class="task-section">
+          <span class="icon">🏷️</span>
+          <strong>Labels:</strong>
+          <span *ngFor="let label of task.labels" class="label-chip">{{ label }}</span>
+      </p>
+      <p class="task-section">
+          <span class="icon">🆔</span>
+          <strong>ID:</strong> {{ task.id.toString() }}
+      </p>
   </div>
+</div>

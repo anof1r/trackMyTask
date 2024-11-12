@@ -1,8 +1,9 @@
-<nav class="slider-menu">
+<nav class="slider-menu" [ngClass]="{ 'collapsed': isCollapsed }">
+
   <ul>
     <li *ngFor="let item of menuItems" (click)="navigateTo(item.route)" class="menu-item">
       <i class="material-icons">{{item.icon}}</i>
-      {{ item.label }}
+      <span *ngIf="!isCollapsed">{{ item.label }}</span>
     </li>
   </ul>
 </nav>
