@@ -16,10 +16,16 @@ export class SliderMenuComponent {
     { label: 'Team', route: '/team', icon: 'group' }
   ];
 
-  isCollapsed = false;
-  currentRoute = '';
+  protected isCollapsed = false;
+  protected currentRoute = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.currentRoute = this.router.url;
+    
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+  }
 
   navigateTo(route: string) {
     this.router.navigate([route]);

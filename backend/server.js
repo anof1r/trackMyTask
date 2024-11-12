@@ -3,28 +3,27 @@ const app = express()
 const port = 3000
 app.use(express.json());
 
+const generateTaskId = () => {
+    return 'tMt_' + Math.random().toString(36).substring(2, 9);
+}
+
 // TODO: Statuses are in different cases (Lower, Upper) need to fix
 const tasksArray = [
-    { id: generateTaskId(), name: 'Task 1', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['critical', 'low'] },
-    { id: generateTaskId(), name: 'Task 3', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['normal', 'critical'] },
-    { id: generateTaskId(), name: 'Task 6', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 8', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['low', 'critical', 'normal'] },
-    { id: generateTaskId(), name: 'Task 2', status: "DONE", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: generateTaskId(), name: 'Task 20', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: generateTaskId(), name: 'Task 21', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 22', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 23', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 24', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 25', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: generateTaskId(), name: 'Task 9', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: generateTaskId(), name: 'Task 10', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: generateTaskId(), name: 'Task 11', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: generateTaskId(), name: 'Task 12', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: generateTaskId(), name: 'Task 13', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: generateTaskId(), name: 'Task 14', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: generateTaskId(), name: 'Task 15', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: generateTaskId(), name: 'Task 16', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Implement CI/CD', status: "TODO", description: 'This task is about configuring GitHub Actions to automate the build, test and deployment process of the application', storyCount: 1, labels: ['critical', 'low'] },
+    { id: generateTaskId(), name: 'Develop backend', status: "IN REVIEW", description: 'This task is about writing the server side code for the application. The server should be able to handle requests from the frontend, store data in a database and return the requested data to the frontend', storyCount: 3, labels: ['normal', 'critical'] },
+    { id: generateTaskId(), name: 'Create UI', status: "IN REVIEW", description: 'This task is about creating the user interface for the application. The UI should be easy to use and intuitive', storyCount: 3, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Create API', status: "TODO", description: 'This task is about creating the API for the application. The API should be able to handle requests from the frontend and return the requested data', storyCount: 1, labels: ['low', 'critical', 'normal'] },
+    { id: generateTaskId(), name: 'Test Frontend', status: "DONE", description: 'This task is about writing unit tests and integration tests for the frontend of the application', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Write documentation', status: "IN PROGRESS", description: 'This task is about writing documentation for the application. The documentation should include information about how to use the application, how to run the application and how to contribute to the application', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Write unit tests', status: "IN PROGRESS", description: 'This task is about writing unit tests for the backend of the application. The unit tests should cover all the functions and classes in the backend', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Test backend', status: "IN PROGRESS", description: 'This task is about writing integration tests for the backend of the application. The integration tests should cover all the endpoints and functions in the backend', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Implement security', status: "IN PROGRESS", description: 'This task is about implementing security measures for the application. The security measures should include authentication and authorization', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Deploy to production', status: "IN PROGRESS", description: 'This task is about deploying the application to a production environment', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Implement caching', status: "IN PROGRESS", description: 'This task is about implementing caching for the application. The caching should be done using Redis', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Implement authorization', status: "IN PROGRESS", description: 'This task is about implementing authorization for the application. The authorization should be done using roles', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Implement authentication', status: "IN PROGRESS", description: 'This task is about implementing authentication for the application. The authentication should be done using a token', storyCount: 2, labels: ['low'] },
 ]
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -66,10 +65,6 @@ const updateTaskStatus = (taskId, newStatus) => {
         return null;
     }
 };
-
-const generateTaskId = () => {
-    return 'tMt_' + Math.random().toString(36).substring(2, 9);
-}
 
 
 //post na create new task

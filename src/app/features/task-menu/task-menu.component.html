@@ -5,25 +5,26 @@
   <div class="task-details">
       <p class="task-section">
           <span class="icon">📄</span>
-          <strong>Description:</strong> {{ task.description }}
+          <strong>Description: </strong> 
       </p>
+      {{ task.description }}
       <p class="task-section">
           <span class="icon">📈</span>
-          <strong>Status:</strong> 
-          <span [ngClass]="statusClass(task.status)">{{ task.status }}</span>
+          <strong>Status: </strong> 
+          <span [ngClass]="statusClass(task.status)"> {{ task.status }}</span>
       </p>
       <p class="task-section">
           <span class="icon">🌟</span>
-          <strong>Story Points:</strong> {{ task.storyCount }}
+          <strong>Story Points: </strong> {{ task.storyCount }}
       </p>
       <p class="task-section">
           <span class="icon">🏷️</span>
-          <strong>Labels:</strong>
-          <span *ngFor="let label of task.labels" class="label-chip">{{ label }}</span>
+          <strong>Labels: </strong>
+          <span *ngFor="let label of task.labels" class="label-chip"> {{ label }}</span>
       </p>
       <p class="task-section">
           <span class="icon">🆔</span>
-          <strong>ID:</strong> {{ task.id.toString() }}
+          <strong>ID: </strong> {{ task.id.toString() }}
       </p>
   </div>
 </div>
