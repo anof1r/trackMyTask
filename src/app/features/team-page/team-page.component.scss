@@ -1,0 +1,24 @@
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Центрирование карточек */
+    padding: 20px;
+  }
+  
+  .team-card {
+    width: 250px;
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 50%; /* Круглая аватарка */
+  }
+  
+  .card-content {
+    margin-top: 10px;
+  }
+  
