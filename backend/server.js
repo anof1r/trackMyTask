@@ -4,26 +4,25 @@ const port = 3000
 app.use(express.json());
 
 const tasksArray = [
-    { id: 1, name: 'Task 1', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['critical'] },
-    { id: 3, name: 'Task 3', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['normal'] },
-    { id: 6, name: 'Task 6', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['critical'] },
-    { id: 8, name: 'Task 8', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['low'] },
-    { id: 2, name: 'Task 2', status: "DONE", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: 7, name: 'Task 20', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: 4, name: 'Task 21', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: 9, name: 'Task 22', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: 10, name: 'Task 23', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: 11, name: 'Task 24', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: 12, name: 'Task 25', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: 13, name: 'Task 9', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: 14, name: 'Task 10', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: 15, name: 'Task 11', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: 16, name: 'Task 12', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: 17, name: 'Task 13', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
-    { id: 18, name: 'Task 14', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-    { id: 19, name: 'Task 15', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
-    { id: 20, name: 'Task 16', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
-
+    { id: generateTaskId(), name: 'Task 1', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['critical', 'low'] },
+    { id: generateTaskId(), name: 'Task 3', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['normal', 'critical'] },
+    { id: generateTaskId(), name: 'Task 6', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 8', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['low', 'critical', 'normal'] },
+    { id: generateTaskId(), name: 'Task 2', status: "DONE", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Task 20', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Task 21', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 22', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 23', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 24', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 25', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Task 9', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Task 10', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Task 11', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Task 12', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Task 13', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['normal'] },
+    { id: generateTaskId(), name: 'Task 14', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
+    { id: generateTaskId(), name: 'Task 15', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['critical'] },
+    { id: generateTaskId(), name: 'Task 16', status: "IN PROGRESS", description: 'This is task 2', storyCount: 2, labels: ['low'] },
 ]
 
 app.get('/', (req, res) => {
@@ -41,7 +40,7 @@ app.patch('/tasks/:taskId', (req, res) => {
 
     console.log(`Received request to update task with id ${taskId} to status ${newStatus}`);
 
-    const updatedArray = updateTaskStatus(Number(taskId), newStatus);
+    const updatedArray = updateTaskStatus(taskId, newStatus);
 
     if (updatedArray) {
         res.statusCode = 201;
@@ -66,6 +65,11 @@ const updateTaskStatus = (taskId, newStatus) => {
         return null;
     }
 };
+
+const generateTaskId = () => {
+    return 'tMt_' + Math.random().toString(36).substring(2, 9);
+}
+
 
 //post na create new task
 //delete ponytno i tak

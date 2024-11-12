@@ -1,17 +1,50 @@
 .task-card {
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
+  border-radius: 8px;
+  background-color: #fff;
   cursor: move;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.cdk-drag-preview {
+.task-card:hover {
+  background-color: #f1f8ff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.task-story {
+  font-size: 0.85rem;
+  color: #555;
   background-color: #e0f7fa;
-  border: 1px solid #00bcd4;
+  padding: 3px 6px;
+  border-radius: 4px;
 }
 
-.cdk-drop-list-dragging .task-card {
-  opacity: 0.5;
+.task-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.task-labels {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.task-label {
+  font-size: 0.75rem;
+  color: #fff;
+  background-color: #007bff;
+  padding: 2px 6px;
+  border-radius: 3px;
 }
