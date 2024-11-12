@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 app.use(express.json());
 
+// TODO: Statuses are in different cases (Lower, Upper) need to fix
 const tasksArray = [
     { id: generateTaskId(), name: 'Task 1', status: "TODO", description: 'This is task 1', storyCount: 1, labels: ['critical', 'low'] },
     { id: generateTaskId(), name: 'Task 3', status: "IN REVIEW", description: 'This is task 3', storyCount: 3, labels: ['normal', 'critical'] },

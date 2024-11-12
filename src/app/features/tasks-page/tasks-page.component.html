@@ -45,7 +45,7 @@
         <tr>
             <td>{{ task.name }}</td>
             <td>{{ task.status }}</td>
-            <td>{{ task.storyCount }}</td>
+            <td style="text-align: center;">{{ task.storyCount }}</td>
             <td>
             @for (label of task.labels; track $index) {
                 <p-tag [severity]="label | statusSeverity" [value]="label" [style]="{ 'margin-right': '0.5em' }"></p-tag>
