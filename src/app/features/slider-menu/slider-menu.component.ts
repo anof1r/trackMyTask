@@ -13,7 +13,7 @@ export class SliderMenuComponent {
   menuItems = [
     { label: 'Board', route: '/board', icon: 'dashboard' },
     { label: 'Tasks', route: '/tasks', icon: 'task' },
-    { label: 'Team', route: '/team', icon: 'group' }
+    { label: 'Team', route: '/team', icon: 'group' },
   ];
 
   protected isCollapsed = false;

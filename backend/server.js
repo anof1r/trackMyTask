@@ -36,7 +36,8 @@ const prepareTasksToSend = (tasks) => {
             status: task.status,
             description: task.description,
             storyCount: task.story_points,
-            labels: task.priority // change in bd to array of labels
+            labels: task.priority,
+            assignedUser: task.assigned_user // change in bd to array of labels
             //TODO: timestamps
         }
     });
@@ -64,15 +65,17 @@ app.get('/tasks/:projectId', async (req, res) => {
 })
 
 //TODO: update task status
-    app.patch('/tasks/:taskId', async (req, res) => {
-        try {
-            const result = await pool.query('UPDATE public."Task" SET status = $1 WHERE id = $2', [req.body.status, req.params.taskId]);
-            res.json(prepareTasksToSend(result.rows));
-        } catch (err) {
-            console.error('An error occured while fetching data from the database:', err.stack);
-            res.status(500).send('Server error');
-        }
-    })
+app.patch('/tasks/:taskId', async (req, res) => {
+    try {
+        const result = await pool.query('UPDATE public."Task" SET status = $1 WHERE id = $2', [req.body.status, req.params.taskId]);
+        res.json(prepareTasksToSend(result.rows));
+    } catch (err) {
+        console.error('An error occured while fetching data from the database:', err.stack);
+        res.status(500).send('Server error');
+    }
+})
+
+//TODO: admin stuff (update descriptions, titles, etc)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
