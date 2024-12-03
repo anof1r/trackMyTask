@@ -2,7 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Центрирование карточек */
+    justify-content: center;
     padding: 20px;
   }
   
@@ -15,7 +15,7 @@
     width: 150px;
     height: 150px;
     margin: 10px;
-    border-radius: 50%; /* Круглая аватарка */
+    border-radius: 50%;
   }
   
   .card-content {

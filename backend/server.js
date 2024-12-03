@@ -1,13 +1,15 @@
 const express = require('express')
 const app = express()
+const cors = require('cors');
 const port = 3000
-app.use(express.json());
+const pool = require('./db');
 
+app.use(express.json());
+app.use(cors());
 const generateTaskId = () => {
     return 'tMt_' + Math.random().toString(36).substring(2, 9);
 }
 
-// TODO: Statuses are in different cases (Lower, Upper) need to fix
 const tasksArray = [
     { id: generateTaskId(), name: 'Implement CI/CD', status: "TODO", description: 'This task is about configuring GitHub Actions to automate the build, test and deployment process of the application', storyCount: 1, labels: ['critical', 'low'] },
     { id: generateTaskId(), name: 'Develop backend', status: "IN REVIEW", description: 'This task is about writing the server side code for the application. The server should be able to handle requests from the frontend, store data in a database and return the requested data to the frontend', storyCount: 3, labels: ['normal', 'critical'] },
@@ -24,6 +26,16 @@ const tasksArray = [
     { id: generateTaskId(), name: 'Implement authentication', status: "IN PROGRESS", description: 'This task is about implementing authentication for the application. The authentication should be done using a token', storyCount: 2, labels: ['low'] },
 ]
 
+//TODO: db connection test. Delete later
+app.get('/projects', async (req, res) => {
+    try {
+      const result = await pool.query('SELECT * FROM public."Project"');
+      res.json(result.rows);
+    } catch (err) {
+      console.error('An error occured while fetching data from the database', err.stack);
+      res.status(500).send('Server error');
+    }
+  });
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
