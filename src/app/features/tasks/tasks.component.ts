@@ -7,7 +7,7 @@ import { TruncatePipe } from './pipes/truncate-pipe';
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [TaskMenuComponent, NgFor, TruncatePipe],
+  imports: [NgFor, TruncatePipe],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.scss'
 })

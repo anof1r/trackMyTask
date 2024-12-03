@@ -61,13 +61,7 @@ export class BoardComponent implements OnInit {
       const task = event.container.data[event.currentIndex];
       const newStatus = section.status;
 
-      this.boardApiService.updateTaskStatus(task.id, newStatus).subscribe((res: any) => {
-
-        const tasksArray = res.updatedTasks;
-
-        this.boardUiService.tasksSubject.next(tasksArray);
-
-      });
+      this.boardApiService.updateTaskStatus(task.id, newStatus).subscribe();
     }
   }
 

@@ -6,10 +6,12 @@ const pool = require('./db');
 
 app.use(express.json());
 app.use(cors());
+
 const generateTaskId = () => {
     return 'tMt_' + Math.random().toString(36).substring(2, 9);
 }
 
+// TODO: useless 
 const tasksArray = [
     { id: generateTaskId(), name: 'Implement CI/CD', status: "TODO", description: 'This task is about configuring GitHub Actions to automate the build, test and deployment process of the application', storyCount: 1, labels: ['critical', 'low'] },
     { id: generateTaskId(), name: 'Develop backend', status: "IN REVIEW", description: 'This task is about writing the server side code for the application. The server should be able to handle requests from the frontend, store data in a database and return the requested data to the frontend', storyCount: 3, labels: ['normal', 'critical'] },
@@ -26,16 +28,51 @@ const tasksArray = [
     { id: generateTaskId(), name: 'Implement authentication', status: "IN PROGRESS", description: 'This task is about implementing authentication for the application. The authentication should be done using a token', storyCount: 2, labels: ['low'] },
 ]
 
-//TODO: db connection test. Delete later
+const prepareTasksToSend = (tasks) => {
+    return tasks.map(task => {
+        return {
+            id: task.id,
+            name: task.title,
+            status: task.status,
+            description: task.description,
+            storyCount: task.story_points,
+            labels: task.priority // change in bd to array of labels
+            //TODO: timestamps
+        }
+    });
+}
+
 app.get('/projects', async (req, res) => {
     try {
-      const result = await pool.query('SELECT * FROM public."Project"');
-      res.json(result.rows);
+        const result = await pool.query('SELECT * FROM public."Project"');
+        res.json(result.rows);
     } catch (err) {
-      console.error('An error occured while fetching data from the database', err.stack);
-      res.status(500).send('Server error');
+        console.error('An error occured while fetching data from the database', err.stack);
+        res.status(500).send('Server error');
     }
-  });
+});
+
+//TODO: project_id = '5befb196-dcdc-48dd-98a3-d19fd881e62c';
+app.get('/tasks/:projectId', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM public."Task" WHERE project_id = $1', [req.params.projectId]);
+        res.json(prepareTasksToSend(result.rows));
+    } catch (err) {
+        console.error('An error occured while fetching data from the database:', err.stack);
+        res.status(500).send('Server error');
+    }
+})
+
+//TODO: update task status
+    app.patch('/tasks/:taskId', async (req, res) => {
+        try {
+            const result = await pool.query('UPDATE public."Task" SET status = $1 WHERE id = $2', [req.body.status, req.params.taskId]);
+            res.json(prepareTasksToSend(result.rows));
+        } catch (err) {
+            console.error('An error occured while fetching data from the database:', err.stack);
+            res.status(500).send('Server error');
+        }
+    })
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

@@ -14,8 +14,9 @@ export class BoardApiService {
     this.baseUrl = 'http://localhost:3000/'
   }
 
+  //TODO: add param of project ID
   getTasks(): Observable<Task[]> {
-    return this.httpClient.get<Task[]>(this.baseUrl + 'tasks').pipe(
+    return this.httpClient.get<Task[]>(this.baseUrl + 'tasks/5befb196-dcdc-48dd-98a3-d19fd881e62c').pipe(
       catchError((error) => {
         console.error('Error occurred:', error);
         return throwError(() => new Error('Failed to fetch tasks, please try again later'));
