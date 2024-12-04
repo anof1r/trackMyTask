@@ -1,6 +1,6 @@
 <div *ngIf="task" class="task-info">
   <button class="close-btn" (click)="closeTaskInfo()">✖</button>
-  <h2 class="task-title">{{ task.name }}</h2>
+  <h2 class="task-title"> {{ task.name }}</h2>
   
   <div class="task-details">
       <p class="task-section">
@@ -22,6 +22,10 @@
           <strong>Labels: </strong>
           <span *ngFor="let label of task.labels" class="label-chip"> {{ label }}</span>
       </p>
+    <p class="task-section">
+        <span class="icon">👨‍💼</span>
+        <strong>Assigned user: </strong> {{  userName$ | async }}
+    </p>
       <p class="task-section">
           <span class="icon">🆔</span>
           <strong>ID: </strong> {{ task.id.toString() }}

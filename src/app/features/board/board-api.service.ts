@@ -24,7 +24,7 @@ export class BoardApiService {
     );
   }
 
-  updateTaskStatus(id: number, status: string): Observable<any> {
+  updateTaskStatus(id: string, status: string): Observable<any> {
     return this.httpClient.patch(this.baseUrl + 'tasks/' + id, { status }).pipe(
       catchError(error => {
         console.error('Error updating task:', error);

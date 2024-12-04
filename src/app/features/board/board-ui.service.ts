@@ -23,7 +23,7 @@ export class BoardUiService {
     return this.tasksSubject.getValue();
   }
 
-  updateTaskLocally(taskId: number, newStatus: string) {
+  updateTaskLocally(taskId: string, newStatus: string) {
     console.log('ui-service local update => ', taskId, newStatus);
     
     const updatedTasks = this.getTasks().map(task => {

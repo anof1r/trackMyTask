@@ -15,5 +15,6 @@
     </div>
   </div>
 </div>
-
-<app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask"></app-task-menu>
+@if (selectedTask) {
+  <app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask"></app-task-menu>
+}
