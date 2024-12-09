@@ -12,4 +12,7 @@ export class TaskMenuUiServiceService {
     return this.taskMenuApiService.getUserByID(id)
   }
 
+  updateTask(id: string, updatedTask: any): Observable<any> {
+    return this.taskMenuApiService.updateTaskContent(id, updatedTask)
+  }
 }

@@ -20,4 +20,13 @@ export class TaskMenuApiServiceService {
       })
     );
   }
+
+  updateTaskContent(id: string, updatedTask: string): Observable<any> {
+    return this.httpClient.post(this.baseUrl + 'tasks/' + id, { updatedTask }).pipe(
+      catchError(error => {
+        console.error('Error updating task content:', error);
+        return throwError(() => new Error('Failed to update task content'));
+      })
+    );
+  }
 }

@@ -12,10 +12,10 @@ export interface Section {
 
 export interface Task {
     id: string,
-    name: string,
+    title: string,
     status: BOARD_SECTIONS,
     description: string,
-    storyCount: number,
+    story_points: number,
     labels: String[],
     assignedUser: string
 }

@@ -1,5 +1,5 @@
 <p-table [rowsPerPageOptions]="[5, 10, 15] " [paginator]="true" [rows]="5" [value]="(tasks | async) ?? []"
-    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['name', 'task.status', 'task.storyCount', 'labels']">
+    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['title', 'task.status', 'task.story_points', 'labels']">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -9,7 +9,7 @@
         </tr>
         <tr>
             <th>
-                <p-columnFilter type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name" />
+                <p-columnFilter type="text" field="title" placeholder="Search by name" ariaLabel="Filter Name" />
             </th>
             <th>
                 <p-columnFilter field="status" matchMode="equals" [showMenu]="false">
@@ -43,9 +43,9 @@
     </ng-template>
     <ng-template pTemplate="body" let-task>
         <tr>
-            <td>{{ task.name }}</td>
+            <td>{{ task.title }}</td>
             <td>{{ task.status }}</td>
-            <td style="text-align: center;">{{ task.storyCount }}</td>
+            <td style="text-align: center;">{{ task.story_points }}</td>
             <td>
             @for (label of task.labels; track $index) {
                 <p-tag [severity]="label | statusSeverity" [value]="label" [style]="{ 'margin-right': '0.5em' }"></p-tag>

@@ -41,6 +41,10 @@ export class BoardComponent implements OnInit {
     this.boardUiService.loadTasks()
   }
 
+  onTaskUpdated(): void {
+    this.boardUiService.loadTasks();
+  }
+
   get connectedLists(): string[] {
     return this.sections.map((_, index) => 'list' + index);
   }

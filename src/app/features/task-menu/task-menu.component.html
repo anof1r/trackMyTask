@@ -1,34 +1,81 @@
-<div *ngIf="task" class="task-info">
-  <button class="close-btn" (click)="closeTaskInfo()">✖</button>
-  <h2 class="task-title"> {{ task.name }}</h2>
+<div *ngIf="task" class="task-info" [ngClass]="{ 'edit-mode': isEditMode }">
+    <button class="close-btn" (click)="closeTaskInfo()">✖</button>
   
-  <div class="task-details">
-      <p class="task-section">
-          <span class="icon">📄</span>
-          <strong>Description: </strong> 
-      </p>
-      {{ task.description }}
-      <p class="task-section">
-          <span class="icon">📈</span>
-          <strong>Status: </strong> 
-          <span [ngClass]="statusClass(task.status)"> {{ task.status }}</span>
-      </p>
-      <p class="task-section">
-          <span class="icon">🌟</span>
-          <strong>Story Points: </strong> {{ task.storyCount }}
-      </p>
-      <p class="task-section">
-          <span class="icon">🏷️</span>
-          <strong>Labels: </strong>
-          <span *ngFor="let label of task.labels" class="label-chip"> {{ label }}</span>
-      </p>
-    <p class="task-section">
-        <span class="icon">👨‍💼</span>
-        <strong>Assigned user: </strong> {{  userName$ | async }}
-    </p>
-      <p class="task-section">
-          <span class="icon">🆔</span>
-          <strong>ID: </strong> {{ task.id.toString() }}
-      </p>
+    <form *ngIf="taskForm" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <!-- Info view -->
+      <ng-container *ngIf="!isEditMode; else editMode">
+        <h2 class="task-title">{{ task.title }}</h2>
+  
+        <div class="task-details">
+          <p class="task-section">
+            <span class="icon">📄</span>
+            <strong>Description:</strong> {{ task.description }}
+          </p>
+          <p class="task-section">
+            <span class="icon">📈</span>
+            <strong>Status:</strong>
+            <span [ngClass]="statusClass(task.status)">{{ task.status }}</span>
+          </p>
+          <p class="task-section">
+            <span class="icon">🌟</span>
+            <strong>Story Points:</strong> {{ task.story_points }}
+          </p>
+          <p class="task-section">
+            <span class="icon">🏷️</span>
+            <strong>Labels:</strong>
+            <span *ngFor="let label of task.labels" class="label-chip">{{ label }}</span>
+          </p>
+          <p class="task-section">
+            <span class="icon">👨‍💼</span>
+            <strong>Assigned user:</strong> {{ userName$ | async }}
+          </p>
+        </div>
+  
+        <button class="edit-btn" type="button" (click)="toggleEditMode()">Edit</button>
+      </ng-container>
+  
+      <!-- Edit mode -->
+      <ng-template #editMode>
+        <h2 class="task-title edit-mode">
+          <input formControlName="title" placeholder="Task name" />
+        </h2>
+  
+        <div class="task-details">
+          <p class="task-section">
+            <span class="icon">📄</span>
+            <strong>Description:</strong>
+          </p>
+          <textarea formControlName="description" rows="3" placeholder="Task description"></textarea>
+  
+          <p class="task-section">
+            <span class="icon">📈</span>
+            <strong>Status:</strong>
+            <select formControlName="status">
+              <option value="TODO">TODO</option>
+              <option value="IN PROGRESS">IN PROGRESS</option>
+              <option value="IN REVIEW">IN REVIEW</option>
+              <option value="DONE">DONE</option>
+            </select>
+          </p>
+  
+          <p class="task-section">
+            <span class="icon">🌟</span>
+            <strong>Story Points:</strong>
+            <input type="number" formControlName="story_points" />
+          </p>
+  
+          <p class="task-section">
+            <span class="icon">🏷️</span>
+            <strong>Labels:</strong>
+            <input formControlName="labels" placeholder="Comma-separated labels" />
+          </p>
+        </div>
+  
+        <div class="action-buttons">
+            <button type="submit" class="save-btn">Save</button>
+            <button type="button" class="cancel-btn" (click)="toggleEditMode()">Cancel</button>
+          </div>
+      </ng-template>
+    </form>
   </div>
-</div>
+  

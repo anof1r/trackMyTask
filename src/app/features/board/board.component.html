@@ -16,5 +16,5 @@
   </div>
 </div>
 @if (selectedTask) {
-  <app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask"></app-task-menu>
+  <app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask" (tasksUpdated)="onTaskUpdated()"></app-task-menu>
 }
