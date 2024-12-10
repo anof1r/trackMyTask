@@ -35,7 +35,7 @@ app.get('/projects', async (req, res) => {
 
 app.get('/tasks/:projectId', async (req, res) => {
     console.log('PostgreSQL => GETTING TASKS');
-    
+
     try {
         const result = await pool.query('SELECT * FROM public."Task" WHERE project_id = $1', [req.params.projectId]);
         res.json(prepareTasksToSend(result.rows));
@@ -80,7 +80,7 @@ app.post('/tasks', async (req, res) => {
         const { title, description, status, story_points, priority, assigned_user, created_at, deadline } = req.body;
         const result = await pool.query(
             'INSERT INTO public."Task" (project_id, title, description, status, story_points, priority, assigned_user_id, created_at, deadline) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-            ['5befb196-dcdc-48dd-98a3-d19fd881e62c',title, description, status, story_points, priority, assigned_user, created_at, deadline]
+            ['5befb196-dcdc-48dd-98a3-d19fd881e62c', title, description, status, story_points, priority, assigned_user, created_at, deadline]
         );
         res.json(prepareTasksToSend(result.rows));
     } catch (err) {
@@ -89,7 +89,38 @@ app.post('/tasks', async (req, res) => {
     }
 });
 
-app.get('/users', async (req, res) => { 
+app.post('/task/:userId', async (req, res) => {
+    console.log('PostgreSQL => UPDATING assigned_user')
+
+        try {
+            const result = await pool.query(
+                'UPDATE public."Task" SET assigned_user_id = $1 WHERE id = $2 RETURNING *',
+                [req.body.userId, req.params.taskId]
+            );
+            res.json(prepareTasksToSend(result.rows));
+        } catch (err) {
+            console.error('An error occurred while updating the task:', err.stack);
+            res.status(500).send('Server error');
+        }
+    }
+)
+
+app.get('/task/:userId', async (req, res) => {
+    console.log(req.params, 'PostgreSQL => GETTING TASK BY USERID')
+
+    try {
+        const result = await pool.query(
+            'SELECT * FROM public."Task" WHERE assigned_user_id = $1',
+            [req.params.userId]
+        );
+        res.json(prepareTasksToSend(result.rows));
+    } catch (err) {
+        console.error('An error occurred while updating the task:', err.stack);
+        res.status(500).send('Server error');
+    }
+})
+
+app.get('/users', async (req, res) => {
     console.log('PostgreSQL => GETTING USERS LIST');
 
     try {
@@ -101,7 +132,7 @@ app.get('/users', async (req, res) => {
     }
 })
 
-app.get('/users/:userId', async (req, res) => { 
+app.get('/users/:userId', async (req, res) => {
     console.log('PostgreSQL => GETTING USERS LIST');
 
     try {

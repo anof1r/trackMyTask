@@ -1,14 +1,23 @@
 <div class="team-container">
-    <p-card *ngFor="let member of teamMembers" class="team-card">
-      <ng-template pTemplate="header">
-        <img [src]="member.avatarUrl" alt="Avatar of {{ member.name }}" class="avatar">
-      </ng-template>
-      <div class="card-content">
-        <h3>{{ member.name }}</h3>
-        <p>{{ member.role }}</p>
-        Current task:
-        <a href="#">Move to LIB</a>
+  <div *ngFor="let user of usersWithTasks$ | async" class="team-tile">
+    <div class="user-info">
+      <img [src]="user.avatar_url" alt="Avatar of {{ user.username }}" class="avatar">
+      <div class="user-details">
+        <h3 class="username">{{ user.username }}</h3>
+        <p class="role">{{ user.role }}</p>
       </div>
-    </p-card>
+    </div>
+    <div class="tasks-preview">
+      <h4 class="tasks-header">Текущие задачи</h4>
+      <div class="tasks-list">
+        <div *ngFor="let task of user.tasks; let i = index" class="task-item">
+          <span class="task-index">{{ i + 1 }}.</span>
+          <div class="task-details">
+            <p class="task-title">{{ task.title }}</p>
+          </div>
+        </div>
+        <p *ngIf="user.tasks.length === 0" class="no-tasks">No tasks assigned</p>
+      </div>
+    </div>
   </div>
-  
+</div>

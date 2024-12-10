@@ -6,7 +6,7 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #007bff; /* Синий цвет */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 50%;
@@ -22,7 +22,7 @@
   }
   
   .floating-button:hover {
-    background-color: #0056b3; /* Темно-синий цвет при наведении */
+    background-color: #0056b3;
     transform: scale(1.1);
   }
   

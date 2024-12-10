@@ -40,7 +40,7 @@ export class TaskMenuComponent implements OnChanges, OnInit {
     if (this.task) {
       this.initForm();
       this.taskMenuUiService
-        .getUserNameById(this.task.assignedUser).pipe(tap(console.log))
+        .getUserNameById(this.task.assignedUser)
         .subscribe((user) => this.userNameSubject.next(user[0].username));
     }
   }
