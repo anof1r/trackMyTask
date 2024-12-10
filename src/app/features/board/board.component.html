@@ -18,3 +18,13 @@
 @if (selectedTask) {
   <app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask" (tasksUpdated)="onTaskUpdated()"></app-task-menu>
 }
+
+<app-create-task-modal
+  *ngIf="isCreateTaskModalOpen"
+  (close)="closeCreateTaskModal()"
+  (taskCreated)="onTaskCreated($event)">
+</app-create-task-modal>
+
+<button class="floating-button" (click)="openModal()">
+    +
+</button>

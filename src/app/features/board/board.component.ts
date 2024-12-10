@@ -7,11 +7,12 @@ import { BoardUiService } from './board-ui.service';
 import { BoardApiService } from './board-api.service';
 import { map, Observable } from 'rxjs';
 import { TaskMenuComponent } from '../task-menu/task-menu.component';
+import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [NgFor, AsyncPipe, NgIf, TasksComponent,TaskMenuComponent, DragDropModule],
+  imports: [NgFor, AsyncPipe, NgIf, TasksComponent,TaskMenuComponent, DragDropModule, CreateTaskModalComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -24,6 +25,7 @@ export class BoardComponent implements OnInit {
     { status: 'In Review', tasks: [] },
     { status: 'Done', tasks: [] },
   ];
+  protected isCreateTaskModalOpen = false;
 
   sections$: Observable<{ status: string, tasks: Task[] }[]>;
   protected selectedTask: Task | null = null;
@@ -52,6 +54,21 @@ export class BoardComponent implements OnInit {
   onSelectTask(task: Task): void {
     this.selectedTask = task;
   }
+
+  openModal(): void {    
+    this.isCreateTaskModalOpen = true;
+  }
+
+  closeCreateTaskModal(): void {
+    this.isCreateTaskModalOpen = false;
+  }
+
+  onTaskCreated(task: Task): void {
+    this.boardApiService.createTask(task).subscribe(() => {
+      this.boardUiService.loadTasks()
+    });
+  }
+  
 
   drop(event: CdkDragDrop<Task[]>, section: any) {
     if (event.previousContainer !== event.container) {

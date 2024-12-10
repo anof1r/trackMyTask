@@ -16,8 +16,9 @@ const prepareTasksToSend = (tasks) => {
             description: task.description,
             story_points: task.story_points,
             labels: task.priority,
-            assignedUser: task.assigned_user_id
-            //TODO: timestamps
+            assignedUser: task.assigned_user_id,
+            created_at: task.created_at,
+            deadline: task.deadline
         }
     });
 }
@@ -71,6 +72,34 @@ app.post('/tasks/:taskId', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+app.post('/tasks', async (req, res) => {
+    console.log('PostgreSQL => CREATING NEW TASK');
+
+    try {
+        const { title, description, status, story_points, priority, assigned_user, created_at, deadline } = req.body;
+        const result = await pool.query(
+            'INSERT INTO public."Task" (project_id, title, description, status, story_points, priority, assigned_user_id, created_at, deadline) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
+            ['5befb196-dcdc-48dd-98a3-d19fd881e62c',title, description, status, story_points, priority, assigned_user, created_at, deadline]
+        );
+        res.json(prepareTasksToSend(result.rows));
+    } catch (err) {
+        console.error('An error occurred while creating the task:', err.stack);
+        res.status(500).send('Server error');
+    }
+});
+
+app.get('/users', async (req, res) => { 
+    console.log('PostgreSQL => GETTING USERS LIST');
+
+    try {
+        const result = await pool.query('SELECT * FROM public."User"');
+        res.json(result.rows);
+    } catch (err) {
+        console.error('An error occured while fetching data from the database:', err.stack);
+        res.status(500).send('Server error');
+    }
+})
 
 app.get('/users/:userId', async (req, res) => { 
     console.log('PostgreSQL => GETTING USERS LIST');

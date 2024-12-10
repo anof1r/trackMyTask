@@ -1,0 +1,74 @@
+<div class="modal-overlay" (click)="cancel()"></div>
+<div class="modal">
+  <div class="modal-header">
+    <h2>Create New Task</h2>
+    <button class="close-btn" (click)="cancel()">✖</button>
+  </div>
+
+  <form [formGroup]="taskForm" (ngSubmit)="submit()" class="modal-body">
+    <div class="form-group">
+      <label for="task-name">Task Name</label>
+      <input 
+        id="task-name" 
+        formControlName="title" 
+        placeholder="Enter task title" 
+        [class.invalid]="taskForm.get('name')?.invalid && taskForm.get('name')?.touched"
+      />
+      <small *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched">
+        Task name must be at least 3 characters long.
+      </small>
+    </div>
+
+    <div class="form-group">
+        <label for="task-story-points">Deadline</label>
+        <input 
+          id="task-story-points" 
+          type="date" 
+          formControlName="deadline" 
+          placeholder="Enter deadline"
+        />
+      </div>
+    <div class="form-group">
+      <label for="task-description">Description</label>
+      <textarea id="task-description" formControlName="description" rows="4" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="task-status">Status</label>
+      <select id="task-status" formControlName="status">
+        <option value="TODO">TODO</option>
+        <option value="In Progress">In Progress</option>
+        <option value="In Review">In Review</option>
+        <option value="Done">Done</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="task-story-points">Story Points</label>
+      <input 
+        id="task-story-points" 
+        type="number" 
+        formControlName="story_points" 
+        placeholder="Enter story points"
+      />
+    </div>
+    <div class="form-group">
+        <label for="task-story-points">Assigned User</label>
+        <select 
+          id="task-story-points" 
+          type="string" 
+          formControlName="assigned_user" 
+          placeholder="Enter story points"
+        >
+        @for (user of users$ | async; track $index) {
+            <option value="{{user.id}}">{{user.username}}</option>
+        }
+    </select>
+      </div>
+
+    <div class="modal-actions">
+      <button type="submit" class="save-btn" [disabled]="taskForm.invalid">Create</button>
+      <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

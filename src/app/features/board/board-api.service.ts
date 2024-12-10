@@ -32,4 +32,13 @@ export class BoardApiService {
       })
     );
   }
+
+  createTask(task: Task): Observable<any> {
+    return this.httpClient.post(this.baseUrl + 'tasks', task).pipe(
+      catchError(error => {
+        console.error('Error creating task:', error);
+        return throwError(() => new Error('Failed to create task'));
+      })
+    );
+  }
 }

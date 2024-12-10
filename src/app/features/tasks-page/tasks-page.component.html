@@ -1,8 +1,9 @@
 <p-table [rowsPerPageOptions]="[5, 10, 15] " [paginator]="true" [rows]="5" [value]="(tasks | async) ?? []"
-    [tableStyle]="{ 'min-width': '50rem' }" [globalFilterFields]="['title', 'task.status', 'task.story_points', 'labels']">
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['task.title', 'task.status', 'story_points', 'labels']">
     <ng-template pTemplate="header">
         <tr>
-            <th>Name</th>
+            <th>Title</th>
             <th>Status</th>
             <th>Story Points</th>
             <th>Label</th>
@@ -30,8 +31,8 @@
             <th>
                 <p-columnFilter field="labels" matchMode="equals" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-dropdown [options]="['critical', 'low', 'normal']"
-                            (onChange)="filter($event.value)" placeholder="Select One" [showClear]="true">
+                        <p-dropdown [options]="['critical', 'low', 'normal']" (onChange)="filter($event.value)"
+                            placeholder="Select One" [showClear]="true">
                             <ng-template let-option pTemplate="item">
                                 {{option}}
                             </ng-template>
@@ -47,10 +48,21 @@
             <td>{{ task.status }}</td>
             <td style="text-align: center;">{{ task.story_points }}</td>
             <td>
-            @for (label of task.labels; track $index) {
-                <p-tag [severity]="label | statusSeverity" [value]="label" [style]="{ 'margin-right': '0.5em' }"></p-tag>
-            }
-        </td>
+                @for (label of task.labels; track $index) {
+                <p-tag [severity]="label | statusSeverity" [value]="label"
+                    [style]="{ 'margin-right': '0.5em' }"></p-tag>
+                }
+            </td>
         </tr>
     </ng-template>
 </p-table>
+
+<app-create-task-modal
+  *ngIf="isCreateTaskModalOpen"
+  (close)="closeCreateTaskModal()"
+  (taskCreated)="onTaskCreated($event)">
+</app-create-task-modal>
+
+<button class="floating-button" (click)="openModal()">
+    +
+</button>
