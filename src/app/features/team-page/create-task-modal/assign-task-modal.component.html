@@ -1,0 +1,25 @@
+<div class="modal-overlay" (click)="cancel()"></div>
+<div class="modal">
+  <div class="modal-header">
+    <h2>Добавить задачу:</h2>
+    <button class="close-btn" (click)="cancel()">✖</button>
+  </div>
+
+  <form [formGroup]="taskForm"  class="modal-body">
+
+      <div class="form-group">
+        <label for="task-story-points">Дать задачу:</label>
+        <select id="task-story-points" type="string"  placeholder="Enter story points" formControlName="taskId">
+          @for (task of tasks$ | async; track $index) {
+          <option value="{{task.id}}">{{task.title}}</option>
+          }
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="save-btn" [disabled]="taskForm.invalid" (click)="submit()">Добавить</button>
+        <button type="button" class="cancel-btn" (click)="cancel()">Закрыть</button>
+      </div>
+
+  </form>
+</div>

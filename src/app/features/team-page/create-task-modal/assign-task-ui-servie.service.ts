@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TeamPageServiceService {
+export class AssignTaskModalUiServieService {
 
   protected baseUrl: string = 'http://localhost:3000/'
 
@@ -20,21 +20,13 @@ export class TeamPageServiceService {
     );
   }
 
-  getUserCurrentTask(userId: string): Observable<any> {
-    return this.httpClient.get(this.baseUrl + 'task/' + userId).pipe(
+  getTasks(): Observable<any> {    
+    return this.httpClient.get(this.baseUrl + 'tasks/5befb196-dcdc-48dd-98a3-d19fd881e62c').pipe(
       catchError(error => {
-        console.error('Error fetching user:', error);
+        console.error('Error fetching tasks:', error);
         return throwError(() => new Error('Failed to fetch user'));
       })
     );
   }
 
-  assignToUser(taskId: string, userId: string): Observable<any> {
-    return this.httpClient.post(this.baseUrl + 'task/' + taskId, {userId}).pipe(
-      catchError(error => {
-        console.error('Error fetching user:', error);
-        return throwError(() => new Error('Failed to fetch user'));
-      })
-    );
-  }
 }

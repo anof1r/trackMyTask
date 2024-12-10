@@ -1,23 +1,39 @@
 <div class="team-container">
   <div *ngFor="let user of usersWithTasks$ | async" class="team-tile">
     <div class="user-info">
-      <img [src]="user.avatar_url" alt="Avatar of {{ user.username }}" class="avatar">
+      <img [src]="user.avatar_url" alt="Avatar of {{ user.username }}" class="avatar" />
       <div class="user-details">
         <h3 class="username">{{ user.username }}</h3>
         <p class="role">{{ user.role }}</p>
       </div>
+      <button class="action-btn" (click)="openModal(user.id)">
+        <i class="material-icons">add</i>
+      </button>
     </div>
     <div class="tasks-preview">
       <h4 class="tasks-header">Текущие задачи:</h4>
       <div class="tasks-list">
-        <div *ngFor="let task of user.tasks; let i = index" class="task-item">
+        <div 
+          *ngFor="let task of user.tasks; let i = index" 
+          class="task-item" 
+          [ngClass]="getStatusClass(task.status)">
           <span class="task-index">{{ i + 1 }}.</span>
           <div class="task-details">
-            <p class="task-title">{{ task.title }}</p>
+            <p class="task-title">
+              {{ task.title }}
+              <i class="material-icons task-status-icon">{{ getStatusIcon(task.status) }}</i>
+            </p>
           </div>
         </div>
-        <p *ngIf="user.tasks.length === 0" class="no-tasks">No tasks assigned</p>
+        <p *ngIf="user.tasks.length === 0" class="no-tasks">Нет задач в работе</p>
       </div>
     </div>
   </div>
 </div>
+
+<app-assign-task-modal
+  *ngIf="isCreateTaskModalOpen"
+  (close)="closeCreateTaskModal()"
+  (taskSelected)="onTaskSelected($event)"
+  [userId]="currentUserId">
+</app-assign-task-modal>

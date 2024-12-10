@@ -92,14 +92,12 @@ export class BoardComponent implements OnInit {
         return 'Нужно сделать';
       case 'In Progress':
         return 'В работе';
-      case 'In Rewiev':
+      case 'In Review':
         return 'На проверке';
       case 'Done':
         return 'Готово';
       default:
         return sectionTitle;
     }
-
   }
-
 }

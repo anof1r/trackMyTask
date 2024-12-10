@@ -89,20 +89,20 @@ app.post('/tasks', async (req, res) => {
     }
 });
 
-app.post('/task/:userId', async (req, res) => {
+app.post('/task/:taskId', async (req, res) => {
     console.log('PostgreSQL => UPDATING assigned_user')
-
-        try {
-            const result = await pool.query(
-                'UPDATE public."Task" SET assigned_user_id = $1 WHERE id = $2 RETURNING *',
-                [req.body.userId, req.params.taskId]
-            );
-            res.json(prepareTasksToSend(result.rows));
-        } catch (err) {
-            console.error('An error occurred while updating the task:', err.stack);
-            res.status(500).send('Server error');
-        }
+    
+    try {
+        const result = await pool.query(
+            'UPDATE public."Task" SET assigned_user_id = $1 WHERE id = $2 RETURNING *',
+            [req.body.userId, req.params.taskId]
+        );
+        res.json(prepareTasksToSend(result.rows));
+    } catch (err) {
+        console.error('An error occurred while updating the task:', err.stack);
+        res.status(500).send('Server error');
     }
+}
 )
 
 app.get('/task/:userId', async (req, res) => {
