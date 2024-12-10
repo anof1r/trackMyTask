@@ -34,4 +34,17 @@ export class SliderMenuComponent {
   toggleMenu() {
     this.isCollapsed = !this.isCollapsed;
   }
+
+  translateRoutings(label: string): string {
+    switch (label) {
+      case 'Board':
+        return 'Доска';
+      case 'Tasks':
+        return 'Задачи';
+      case 'Team':
+        return 'Команда';
+      default:
+        return '';
+    }
+  }
 }

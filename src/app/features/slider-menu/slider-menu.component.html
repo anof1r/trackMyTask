@@ -7,7 +7,7 @@
       class="menu-item" 
       [class.active]="currentRoute === item.route">
       <i class="material-icons">{{ item.icon }}</i>
-      <span *ngIf="!isCollapsed">{{ item.label }}</span>
+      <span *ngIf="!isCollapsed">{{ translateRoutings(item.label) }}</span>
     </li>
   </ul>
 </nav>

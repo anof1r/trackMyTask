@@ -1,6 +1,6 @@
 <div class="board">
   <div class="board-section" *ngFor="let section of sections$ | async; let i = index">
-    <div class="section-title">{{ section.status }}</div>
+    <div class="section-title">{{ translateSections(section.status) }}</div>
     <div 
       cdkDropList 
       [cdkDropListData]="section.tasks" 

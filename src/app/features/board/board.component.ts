@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { CdkDragDrop, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Task } from '../types/types';
@@ -84,6 +84,22 @@ export class BoardComponent implements OnInit {
 
       this.boardApiService.updateTaskStatus(task.id, newStatus).subscribe();
     }
+  }
+
+  translateSections(sectionTitle: string): string {
+    switch (sectionTitle) {
+      case 'TODO':
+        return 'Нужно сделать';
+      case 'In Progress':
+        return 'В работе';
+      case 'In Rewiev':
+        return 'На проверке';
+      case 'Done':
+        return 'Готово';
+      default:
+        return sectionTitle;
+    }
+
   }
 
 }
