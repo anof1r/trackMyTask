@@ -19,3 +19,12 @@ export interface Task {
     labels: String[],
     assignedUser: string
 }
+
+export interface User {
+    id: string,
+    username: string,
+    name: string,
+    email: string,
+    role: string,
+    avatar_url: string
+}
