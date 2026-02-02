@@ -1,13 +1,20 @@
 <nav class="slider-menu" [ngClass]="{ 'collapsed': isCollapsed }">
+  <div class="menu-header">
+    <h2 *ngIf="!isCollapsed" class="app-title">TrackMyTask</h2>
+    <button class="toggle-btn" (click)="toggleMenu()" [attr.aria-label]="isCollapsed ? 'Развернуть меню' : 'Свернуть меню'">
+      <i class="material-icons">{{ isCollapsed ? 'menu_open' : 'menu' }}</i>
+    </button>
+  </div>
 
-  <ul>
+  <ul class="menu-list">
     <li 
       *ngFor="let item of menuItems" 
       (click)="navigateTo(item.route)" 
       class="menu-item" 
-      [class.active]="currentRoute === item.route">
+      [class.active]="currentRoute === item.route"
+      [attr.title]="translateRoutings(item.label)">
       <i class="material-icons">{{ item.icon }}</i>
-      <span *ngIf="!isCollapsed">{{ translateRoutings(item.label) }}</span>
+      <span *ngIf="!isCollapsed" class="menu-label">{{ translateRoutings(item.label) }}</span>
     </li>
   </ul>
 </nav>
