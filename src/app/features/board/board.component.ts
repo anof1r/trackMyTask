@@ -5,7 +5,7 @@ import { Task } from '../types/types';
 import { TasksComponent } from "../tasks/tasks.component";
 import { BoardUiService } from './board-ui.service';
 import { BoardApiService } from './board-api.service';
-import { map, Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 import { TaskMenuComponent } from '../task-menu/task-menu.component';
 import { CreateTaskModalComponent } from '../create-task-modal/create-task-modal.component';
 
@@ -28,15 +28,22 @@ export class BoardComponent implements OnInit {
   protected isCreateTaskModalOpen = false;
 
   sections$: Observable<{ status: string, tasks: Task[] }[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
   protected selectedTask: Task | null = null;
 
-  constructor(protected readonly boardUiService: BoardUiService, protected readonly boardApiService: BoardApiService) {
+  constructor(
+    protected readonly boardUiService: BoardUiService, 
+    protected readonly boardApiService: BoardApiService
+  ) {
     this.sections$ = this.boardUiService.tasks$.pipe(
       map(tasks => this.sections.map(section => ({
         status: section.status,
         tasks: tasks.filter((task: Task) => task.status.toLowerCase() === section.status.toLowerCase())
       })))
     );
+    this.loading$ = this.boardUiService.loading$;
+    this.error$ = this.boardUiService.error$;
   }
 
   ngOnInit(): void {

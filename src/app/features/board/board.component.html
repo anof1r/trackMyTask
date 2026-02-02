@@ -1,20 +1,42 @@
-<div class="board">
-  <div class="board-section" *ngFor="let section of sections$ | async; let i = index">
-    <div class="section-title">{{ translateSections(section.status) }}</div>
-    <div 
-      cdkDropList 
-      [cdkDropListData]="section.tasks" 
-      [cdkDropListConnectedTo]="connectedLists" 
-      class="task-list" 
-      (cdkDropListDropped)="drop($event, section)"
-      [id]="'list' + i"
-    >
-    <div *ngFor="let task of section.tasks" (click)="onSelectTask(task)" class="task" cdkDrag>
-        <app-task [task]="task"></app-task>
+<div class="board-container">
+  <!-- Loading Indicator -->
+  @if (loading$ | async) {
+    <div class="loading-overlay">
+      <div class="loading-spinner"></div>
+      <p>Загрузка задач...</p>
+    </div>
+  }
+
+  <!-- Error Message -->
+  @if (error$ | async; as error) {
+    <div class="error-banner">
+      <i class="material-icons">error_outline</i>
+      <span>{{ error }}</span>
+      <button (click)="boardUiService.clearError()" class="close-btn">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
+  }
+
+  <div class="board">
+    <div class="board-section" *ngFor="let section of sections$ | async; let i = index">
+      <div class="section-title">{{ translateSections(section.status) }}</div>
+      <div 
+        cdkDropList 
+        [cdkDropListData]="section.tasks" 
+        [cdkDropListConnectedTo]="connectedLists" 
+        class="task-list" 
+        (cdkDropListDropped)="drop($event, section)"
+        [id]="'list' + i"
+      >
+      <div *ngFor="let task of section.tasks" (click)="onSelectTask(task)" class="task" cdkDrag>
+          <app-task [task]="task"></app-task>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 @if (selectedTask) {
   <app-task-menu [task]="selectedTask" class="task-info" [class.open]="selectedTask" (tasksUpdated)="onTaskUpdated()"></app-task-menu>
 }
