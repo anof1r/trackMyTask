@@ -66,7 +66,8 @@ export const mockDataInterceptor: HttpInterceptorFn = (req, next) => {
     const userId = url.split('/task/')[1];
     const taskId = mockDataService.getUserCurrentTask(userId);
     const task = taskId ? mockDataService.getTaskById(taskId) : null;
-    return simulateDelay(task);
+    // Return as array to match expected format
+    return simulateDelay(task ? [task] : []);
   }
 
   // POST /task/:taskId - Assign task to user

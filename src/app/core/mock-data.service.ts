@@ -92,31 +92,35 @@ export class MockDataService {
     users: [
       {
         id: 'user-1',
+        username: 'Анна Иванова',
         name: 'Анна Иванова',
         email: 'anna@example.com',
         role: 'Frontend Developer',
-        avatar: 'https://i.pravatar.cc/150?img=1'
+        avatar_url: 'https://i.pravatar.cc/150?img=1'
       },
       {
         id: 'user-2',
+        username: 'Дмитрий Петров',
         name: 'Дмитрий Петров',
         email: 'dmitry@example.com',
         role: 'Backend Developer',
-        avatar: 'https://i.pravatar.cc/150?img=2'
+        avatar_url: 'https://i.pravatar.cc/150?img=2'
       },
       {
         id: 'user-3',
+        username: 'Елена Сидорова',
         name: 'Елена Сидорова',
         email: 'elena@example.com',
         role: 'Tech Lead',
-        avatar: 'https://i.pravatar.cc/150?img=3'
+        avatar_url: 'https://i.pravatar.cc/150?img=3'
       },
       {
         id: 'user-4',
+        username: 'Михаил Козлов',
         name: 'Михаил Козлов',
         email: 'mikhail@example.com',
         role: 'QA Engineer',
-        avatar: 'https://i.pravatar.cc/150?img=4'
+        avatar_url: 'https://i.pravatar.cc/150?img=4'
       }
     ],
     userTasks: {
