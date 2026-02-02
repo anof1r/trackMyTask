@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, tap, of } from 'rxjs';
-import { Task } from '../types/types';
+import { Task, BOARD_SECTIONS } from '../types/types';
 import { BoardApiService } from './board-api.service';
 
 const TASKS_STORAGE_KEY = 'trackMyTask_tasks';
@@ -49,7 +49,18 @@ export class BoardUiService {
   updateTaskLocally(taskId: string, newStatus: string) {
     const updatedTasks = this.getTasks().map(task => {
       if (task.id === taskId) {
-        return { ...task, status: newStatus as any };
+        // Convert string status to BOARD_SECTIONS enum
+        const statusMap: Record<string, BOARD_SECTIONS> = {
+          'TODO': BOARD_SECTIONS.todo,
+          'In Progress': BOARD_SECTIONS.inProgress,
+          'IN PROGRESS': BOARD_SECTIONS.inProgress,
+          'In Review': BOARD_SECTIONS.inReview,
+          'IN REVIEW': BOARD_SECTIONS.inReview,
+          'Done': BOARD_SECTIONS.done,
+          'DONE': BOARD_SECTIONS.done
+        };
+        const status = statusMap[newStatus] || newStatus as BOARD_SECTIONS;
+        return { ...task, status };
       }
       return task;
     });
