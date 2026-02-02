@@ -1,33 +1,81 @@
 .table {
-    padding: 20px;
+  padding: var(--spacing-xl);
+  height: 100%;
+  overflow: auto;
+}
+
+p-table {
+  ::ng-deep {
+    .p-datatable {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      
+      .p-datatable-header {
+        background: linear-gradient(135deg, var(--surface) 0%, #fafbfc 100%);
+        border-bottom: 2px solid var(--border-color);
+        padding: var(--spacing-lg);
+      }
+
+      .p-datatable-thead > tr > th {
+        background: var(--surface);
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .p-datatable-tbody > tr {
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: rgba(99, 102, 241, 0.05);
+        }
+
+        > td {
+          padding: var(--spacing-md) var(--spacing-lg);
+          border-bottom: 1px solid var(--border-color);
+          color: var(--text-secondary);
+        }
+      }
+
+      .p-paginator {
+        background: var(--surface);
+        border-top: 1px solid var(--border-color);
+        padding: var(--spacing-md);
+      }
+    }
+  }
 }
 
 .floating-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
+  position: fixed;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+
+  &:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 24px 32px -8px rgba(99, 102, 241, 0.4);
   }
-  
-  .floating-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
+
+  &:active {
+    transform: scale(0.95) rotate(90deg);
   }
-  
-  .plus-icon {
-    display: inline-block;
-    font-weight: bold;
-  }
-  
+}

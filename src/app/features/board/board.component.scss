@@ -1,67 +1,161 @@
 .board {
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
   height: 100vh; 
   overflow-x: auto;
+  overflow-y: hidden;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
 }
 
 .board-section {
   flex: 1;
-  min-width: 250px;
-  max-width: 300px;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 320px;
+  max-width: 380px;
+  background-color: var(--surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  overflow-y: auto; 
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
 }
 
 .section-title {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.125rem;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 15px;
-  color: #333;
-  border-top: 4px solid #1e90ff;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-primary);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    border-radius: 2px;
+  }
+}
+
+.board-section:nth-child(1) .section-title {
+  color: var(--status-todo);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+  
+  &::before {
+    background: linear-gradient(90deg, transparent, var(--status-todo), transparent);
+  }
+}
+
+.board-section:nth-child(2) .section-title {
+  color: var(--status-progress);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+  
+  &::before {
+    background: linear-gradient(90deg, transparent, var(--status-progress), transparent);
+  }
+}
+
+.board-section:nth-child(3) .section-title {
+  color: var(--status-review);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%);
+  
+  &::before {
+    background: linear-gradient(90deg, transparent, var(--status-review), transparent);
+  }
+}
+
+.board-section:nth-child(4) .section-title {
+  color: var(--status-done);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+  
+  &::before {
+    background: linear-gradient(90deg, transparent, var(--status-done), transparent);
+  }
 }
 
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--spacing-md);
   overflow-y: auto;
-  flex-grow: 1; 
-}
+  flex: 1;
+  padding: var(--spacing-xs);
+  min-height: 200px;
 
+  &:empty::after {
+    content: 'Перетащите задачу сюда';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-style: italic;
+    height: 100%;
+    text-align: center;
+  }
+}
 
 .floating-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 36px;
+  width: 64px;
+  height: 64px;
+  font-size: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: var(--shadow-xl);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+
+  &:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 24px 32px -8px rgba(99, 102, 241, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95) rotate(90deg);
+  }
 }
 
-.floating-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.1);
+/* Drag and drop animations */
+.cdk-drag-preview {
+  box-shadow: var(--shadow-xl);
+  opacity: 0.9;
+  transform: rotate(3deg);
 }
 
-.plus-icon {
-  display: inline-block;
-  font-weight: bold;
+.cdk-drag-placeholder {
+  opacity: 0.5;
+  border: 2px dashed var(--primary-color);
+  background: transparent;
+}
+
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.task-list.cdk-drop-list-dragging .task:not(.cdk-drag-placeholder) {
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
