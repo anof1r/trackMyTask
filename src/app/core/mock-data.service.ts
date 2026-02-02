@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Task, BOARD_SECTIONS } from '../features/types/types';
+import { Task, BOARD_SECTIONS, User } from '../features/types/types';
 
 const MOCK_DATA_KEY = 'trackMyTask_mockData';
 
 export interface MockData {
   tasks: Task[];
-  users: any[];
+  users: User[];
   userTasks: { [userId: string]: string }; // userId -> taskId mapping
 }
 
@@ -199,11 +199,11 @@ export class MockDataService {
   }
 
   // User operations
-  getUsers(): any[] {
+  getUsers(): User[] {
     return this.getMockData().users;
   }
 
-  getUserById(id: string): any | undefined {
+  getUserById(id: string): User | undefined {
     return this.getMockData().users.find(user => user.id === id);
   }
 
@@ -226,7 +226,7 @@ export class MockDataService {
 
   // Utility method to generate unique IDs
   private generateId(): string {
-    return Date.now().toString() + '-' + Math.random().toString(36).substr(2, 9);
+    return Date.now().toString() + '-' + Math.random().toString(36).substring(2, 11);
   }
 
   // Reset to default data (useful for testing)
